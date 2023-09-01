@@ -30,6 +30,7 @@ import {ExecutorSettings} from "./Settings";
 import makeSQLSettings from "./per-lang/makeSQLSettings";
 import makeOctaviaSettings from "./per-lang/makeOctaveSettings";
 import makeMaximaSettings from "./per-lang/makeMaximaSettings";
+import makePHPSettings from "./per-lang/makePHPSettings";
 
 
 /**

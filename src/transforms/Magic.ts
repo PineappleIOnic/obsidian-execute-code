@@ -267,3 +267,15 @@ export function addInlinePlotsToMaxima(source: string): string {
 	return source;
 }
 
+export function addInlinePlotsToPHP(source: string): string {
+	const matches = source.matchAll(HTML_REGEX);
+	for (const match of matches) {
+		const html = match.groups.html;
+
+		const toggle = JSON.stringify(TOGGLE_HTML_SIGIL);
+
+		source = source.replace(match[0], `var_dump(${toggle}); var_dump(${html}); var_dump(${toggle})`)
+	}
+	return source;
+}
+

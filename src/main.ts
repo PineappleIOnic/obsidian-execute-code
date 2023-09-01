@@ -12,7 +12,8 @@ import {
 	addMagicToJS,
 	addMagicToPython,
 	addInlinePlotsToOctave,
-	addInlinePlotsToMaxima
+	addInlinePlotsToMaxima,
+	addInlinePlotsToPHP
 } from "./transforms/Magic";
 
 import ExecutorContainer from './ExecutorContainer';
@@ -26,7 +27,7 @@ import runAllCodeBlocks from './runAllCodeBlocks';
 export const languageAliases = ["javascript", "typescript", "bash", "csharp", "wolfram", "nb", "wl", "hs", "py"] as const;
 export const canonicalLanguages = ["js", "ts", "cs", "lean", "lua", "python", "cpp", "prolog", "shell", "groovy", "r",
 	"go", "rust", "java", "powershell", "kotlin", "mathematica", "haskell", "scala", "racket", "fsharp", "c", "dart",
-	"ruby", "batch", "sql", "octave", "maxima"] as const;
+	"ruby", "batch", "sql", "octave", "maxima", "php"] as const;
 export const supportedLanguages = [...languageAliases, ...canonicalLanguages] as const;
 export type LanguageId = typeof canonicalLanguages[number];
 
@@ -384,6 +385,13 @@ export default class ExecuteCodePlugin extends Plugin {
 				let transformedCode = await new CodeInjector(this.app, this.settings, language).injectCode(srcCode);
 				transformedCode = addInlinePlotsToMaxima(transformedCode);
 				this.runCodeInShell(transformedCode, out, button, this.settings.maximaPath, this.settings.maximaArgs, "maxima", language, file);
+			})
+		} else if (language === "php") {
+			button.addEventListener("click", async () => {
+				button.className = runButtonDisabledClass;
+				let transformedCode = await new CodeInjector(this.app, this.settings, language).injectCode(srcCode);
+				transformedCode = addInlinePlotsToPHP(transformedCode);
+				this.runCodeInShell(transformedCode, out, button, this.settings.phpPath, this.settings.phpArgs, "php", language, file);
 			})
 		}
 

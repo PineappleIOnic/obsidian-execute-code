@@ -115,6 +115,8 @@ export interface ExecutorSettings {
 	sqlPath: string;
 	sqlArgs: string;
 	sqlInject: string;
+	phpPath: string;
+	phpArgs: string;
 
 	jsInteractive: boolean;
 	tsInteractive: boolean;
@@ -261,6 +263,8 @@ export const DEFAULT_SETTINGS: ExecutorSettings = {
 	octaveInject: "figure('visible','off')  # Necessary to embed plots",
 	maximaPath: "maxima",
 	maximaArgs: "-qb",
+	phpArgs: "",
+	phpPath: "php",
 	maximaFileExtension: "mx",
 	maximaInject: "",
 	jsInteractive: true,
